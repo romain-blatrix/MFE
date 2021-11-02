@@ -1,16 +1,16 @@
 {
-  "name": "@dynamic-remotes/app2",
+  "name": "@microfrontend/app2",
   "version": "0.0.0",
   "private": true,
   "devDependencies": {
-    "@babel/core": "7.15.5",
-    "@babel/preset-react": "7.14.5",
-    "babel-loader": "8.2.2",
-    "html-webpack-plugin": "5.3.2",
-    "serve": "12.0.1",
-    "webpack": "5.61.0",
-    "webpack-cli": "4.9.0",
-    "webpack-dev-server": "4.2.1"
+    "@babel/core": "^7.15.5",
+    "@babel/preset-react": "^7.14.5",
+    "babel-loader": "^8.2.2",
+    "html-webpack-plugin": "^5.3.2",
+    "serve": "^12.0.1",
+    "webpack": "^5.61.0",
+    "webpack-cli": "^4.9.0",
+    "webpack-dev-server": "^4.2.1"
   },
   "scripts": {
     "start": "webpack-cli serve",
@@ -19,8 +19,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "moment": "^2.24.0"
   }
 }

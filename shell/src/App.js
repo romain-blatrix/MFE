@@ -1,4 +1,11 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from 'react-router-dom';
 
 function loadComponent(scope, module) {
   return async () => {
@@ -66,12 +73,12 @@ function System(props) {
     return <h2>Not system specified</h2>;
   }
 
-  if (!ready) {
-    return <h2>Loading dynamic script: {props.system.url}</h2>;
-  }
-
   if (failed) {
     return <h2>Failed to load dynamic script: {props.system.url}</h2>;
+  }
+
+  if (!ready) {
+    return <h2>Loading dynamic script: {props.system.url}</h2>;
   }
 
   const Component = React.lazy(
@@ -86,43 +93,70 @@ function System(props) {
 }
 
 function App() {
-  const [system, setSystem] = React.useState(undefined);
 
-  function setApp2() {
-    setSystem({
-      url: "http://localhost:3002/remoteEntry.js",
-      scope: "app2",
-      module: "./Widget",
-    });
-  }
+  const [routes, setRoutes] = useState()
 
-  function setApp3() {
-    setSystem({
-      url: "http://localhost:3003/remoteEntry.js",
-      scope: "app3",
-      module: "./Widget",
-    });
-  }
+  const { ready } = useDynamicScript({
+    url: "http://localhost:3002/remoteEntry.js",
+  });
+
+  useEffect(() => {
+    const loadData = async () => {
+      const [getAppTwoRoutes] = await Promise.all([
+        loadComponent('app2','./routes'),
+      ]);
+      
+      const appTwoRoutes = await getAppTwoRoutes();
+      setRoutes(appTwoRoutes.default);
+    }
+    if (ready) {
+      loadData();
+    }
+  }, [ready])
+  
+  
+  console.log('========================================');
+  console.log(routes);
 
   return (
-    <div
-      style={{
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-      }}
-    >
-      <h1>Dynamic System Host</h1>
-      <h2>App 1</h2>
-      <p>
-        The Dynamic System will take advantage Module Federation{" "}
-        <strong>remotes</strong> and <strong>exposes</strong>. It will no load
-        components that have been loaded already.
-      </p>
-      <button onClick={setApp2}>Load App 2 Widget</button>
-      <button onClick={setApp3}>Load App 3 Widget</button>
-      <div style={{ marginTop: "2em" }}>
-        <System system={system} />
-      </div>
+    <div>
+      <h1>Shell title</h1>
+      <Router>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            {routes &&
+              <li>
+                <Link to="/app2">app2</Link>
+              </li>
+            }
+            <li>
+              <Link to="/app3">app3</Link>
+            </li>
+          </ul>
+        </nav>
+        <Switch>
+          <Route path="/app2">
+            <System system={{
+              url: "http://localhost:3002/remoteEntry.js",
+              scope: "app2",
+              module: "./Widget",
+            }} />
+          </Route>
+          <Route path="/app3">
+            <System system={{
+              url: "http://localhost:3003/remoteEntry.js",
+              scope: "app3",
+              module: "./Widget",
+            }} />
+          </Route>
+          <Route path="/" exact={true}>
+            <div>home page</div>
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

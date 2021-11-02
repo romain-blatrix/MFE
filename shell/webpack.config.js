@@ -12,6 +12,7 @@ module.exports = {
       directory: path.join(__dirname, "dist"),
     },
     port: 3001,
+    historyApiFallback: true,
   },
   output: {
     publicPath: "auto",
@@ -30,7 +31,10 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "app1",
+      name: "shell",
+      // remotes: {
+      //   "app2": "app2@http://localhost:3002/remoteEntry.js",
+      // },
       // adds react as shared module
       // version is inferred from package.json
       // there is no version check for the required version

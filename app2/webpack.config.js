@@ -33,6 +33,7 @@ module.exports = {
       filename: "remoteEntry.js",
       exposes: {
         "./Widget": "./src/Widget",
+        "./routes": "./src/routes",
       },
       shared: {
         moment: deps.moment,
