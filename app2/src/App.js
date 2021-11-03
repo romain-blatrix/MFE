@@ -86,8 +86,6 @@ function System(props) {
   const Component = React.lazy(
     loadComponent(props.system.scope, props.system.module)
   );
-  console.log('========================================');
-  
 
   return (
     <React.Suspense fallback="Loading System">
@@ -96,45 +94,38 @@ function System(props) {
   );
 }
 
-function App() {
+function App({basePath = ''}) {
 
-  // const { path, url } = useRouteMatch();
-
-  
-  // const url = 'http://localhost:3000'
-  // const path = '/app2'
-  // console.log(path);
-  
-  return (
+    return (
     <div>
       <h1>APP 2 title</h1>
       <Router>
         <nav>
           <ul>
             <li>
-              <Link to={`/app2`}>App 2 Home</Link>
+              <Link to={`${basePath}`}>App 2 Home</Link>
             </li>
             <li>
-              <Link to={`/app2/other`}>other route</Link>
+              <Link to={`${basePath}/other`}>other route</Link>
             </li>
             <li>
-              <Link to={`/app2/dynamic`}>get dynamic</Link>
+              <Link to={`${basePath}/dynamic`}>get dynamic</Link>
             </li>
 
           </ul>
         </nav>
         <Switch>
-          <Route path={`/app2/dynamic`}>
+          <Route path={`${basePath}/dynamic`}>
             <System system={{
               url: "http://localhost:3001/remoteEntry.js",
               scope: "app_dynamic",
               module: "./App",
             }} />
           </Route>
-          <Route path={'/app2/other'}>
+          <Route path={`${basePath}/other`}>
             <div>other really cool route</div>
           </Route>
-          <Route path={'/app2'}>
+          <Route path={`${basePath}`}>
             <div>home page of app 2</div>
           </Route>
         </Switch>

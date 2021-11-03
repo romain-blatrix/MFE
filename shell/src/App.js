@@ -35,23 +35,31 @@ function App() {
             <li>
               <Link to="/">Home</Link>
             </li>
-            {routes &&
+            <li>
+              <Link to="/app2/full">app2</Link>
+            </li>
+            {routes?.map(({label, path}) => (
               <li>
-                <Link to="/app2">app2</Link>
+                <Link to={path} key={path}>{label}</Link> 
               </li>
-            }
+            ))}
             <li>
               <Link to="/app3">app3</Link>
             </li>
           </ul>
         </nav>
         <Switch>
-          <Route path="/app2">
+          <Route path="/app2/full">
             <Suspense fallback="loading...">
               <App2Widget />
-              <App2Full />
+              <App2Full basePath="/app2/full"/>
             </Suspense>
           </Route>
+          {routes?.map(({exact, content, path}) => (
+            <Route path={path} exact={exact} key={path}>
+                {content}
+            </Route>
+            ))}
           <Route path="/app3">
             <Suspense fallback="loading...">
               <App3Widget />
