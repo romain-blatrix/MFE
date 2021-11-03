@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { ModuleFederationPlugin } = require("webpack").container;
 const path = require("path");
 const deps = require("./package.json").dependencies;
+
 module.exports = {
   entry: "./src/index",
   mode: "development",
@@ -33,6 +34,7 @@ module.exports = {
       filename: "remoteEntry.js",
       exposes: {
         "./Widget": "./src/Widget",
+        "./App": "./src/App",
         "./routes": "./src/routes",
       },
       shared: {
