@@ -57,7 +57,7 @@ function App() {
               <App3Widget />
             </Suspense>
           </Route>
-          <Route path="/" exact={true}>
+          <Route path="/" exact>
             <div>home page</div>
           </Route>
         </Switch>

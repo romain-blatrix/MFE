@@ -5,6 +5,8 @@ import {
   Switch,
   Route,
   Link,
+  useLocation,
+  useRouteMatch
 } from 'react-router-dom';
 
 function loadComponent(scope, module) {
@@ -84,6 +86,8 @@ function System(props) {
   const Component = React.lazy(
     loadComponent(props.system.scope, props.system.module)
   );
+  console.log('========================================');
+  
 
   return (
     <React.Suspense fallback="Loading System">
@@ -94,30 +98,13 @@ function System(props) {
 
 function App() {
 
-  // const [routes, setRoutes] = useState()
+  // const { path, url } = useRouteMatch();
 
-  // const { ready } = useDynamicScript({
-  //   url: "http://localhost:3001/remoteEntry.js",
-  // });
-
-  // useEffect(() => {
-  //   const loadData = async () => {
-  //     const [getAppTwoRoutes] = await Promise.all([
-  //       loadComponent('app2','./routes'),
-  //     ]);
-      
-  //     const appTwoRoutes = await getAppTwoRoutes();
-  //     setRoutes(appTwoRoutes.default);
-  //   }
-  //   if (ready) {
-  //     loadData();
-  //   }
-  // }, [ready])
   
+  // const url = 'http://localhost:3000'
+  // const path = '/app2'
+  // console.log(path);
   
-  // console.log('========================================');
-  // console.log(routes);
-
   return (
     <div>
       <h1>APP 2 title</h1>
@@ -125,23 +112,29 @@ function App() {
         <nav>
           <ul>
             <li>
-              <Link to="/">App 2 Home</Link>
+              <Link to={`/app2`}>App 2 Home</Link>
             </li>
             <li>
-              <Link to="/dynamic">get dynamic</Link>
+              <Link to={`/app2/other`}>other route</Link>
+            </li>
+            <li>
+              <Link to={`/app2/dynamic`}>get dynamic</Link>
             </li>
 
           </ul>
         </nav>
         <Switch>
-          <Route path="/dynamic">
+          <Route path={`/app2/dynamic`}>
             <System system={{
               url: "http://localhost:3001/remoteEntry.js",
               scope: "app_dynamic",
               module: "./App",
             }} />
           </Route>
-          <Route path="/" exact={true}>
+          <Route path={'/app2/other'}>
+            <div>other really cool route</div>
+          </Route>
+          <Route path={'/app2'}>
             <div>home page of app 2</div>
           </Route>
         </Switch>

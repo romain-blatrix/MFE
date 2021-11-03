@@ -15,7 +15,7 @@ module.exports = {
     historyApiFallback: true,
   },
   output: {
-    publicPath: "auto",
+    publicPath: "/",
   },
   module: {
     rules: [
