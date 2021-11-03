@@ -13,6 +13,7 @@
   "workspaces": {
     "packages": [
       "shell",
+      "app-dynamic",
       "app2",
       "app3"
     ]
