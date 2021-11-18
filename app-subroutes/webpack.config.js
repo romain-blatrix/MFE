@@ -31,7 +31,7 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "app2",
+      name: "app_subroutes",
       filename: "remoteEntry.js",
       exposes: {
         "./Widget": "./src/Widget",

@@ -14,7 +14,7 @@
     "packages": [
       "shell",
       "app-dynamic",
-      "app2",
+      "app-subroutes",
       "app3"
     ]
   }

@@ -1,5 +1,5 @@
 {
-  "name": "@microfrontend/app2",
+  "name": "@microfrontend/app-subroutes",
   "version": "0.0.0",
   "private": true,
   "devDependencies": {

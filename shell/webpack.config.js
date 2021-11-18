@@ -33,7 +33,7 @@ module.exports = {
     new ModuleFederationPlugin({
       name: "shell",
       remotes: {
-        "app2": "app2@http://localhost:3002/remoteEntry.js",
+        "app-subroutes": "app_subroutes@http://localhost:3002/remoteEntry.js",
         "app3": "app3@http://localhost:3003/remoteEntry.js",
       },
       // adds react as shared module

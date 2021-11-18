@@ -1,4 +1,5 @@
 import React, {useState, useEffect, Suspense} from "react";
+import {ErrorBoundary} from 'react-error-boundary'
 
 import {
   BrowserRouter as Router,
@@ -7,8 +8,8 @@ import {
   Link,
 } from 'react-router-dom';
 
-const App2Widget = React.lazy(() => import('app2/Widget'))
-const App2Full = React.lazy(() => import('app2/App'))
+const AppSubroutesWidget = React.lazy(() => import('app-subroutes/Widget'))
+const AppSubroutesFull = React.lazy(() => import('app-subroutes/App'))
 const App3Widget = React.lazy(() => import('app3/Widget'))
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
 
   useEffect(() => {
     const loadData = async () => {      
-      const appTwoRoutes = await import('app2/routes');
+      const appTwoRoutes = await import('app-subroutes/routes');
       setRoutes(appTwoRoutes.default);
     }
     loadData();
@@ -35,31 +36,47 @@ function App() {
             <li>
               <Link to="/">Home</Link>
             </li>
-            <li>
-              <Link to="/app2/full">app2</Link>
-            </li>
-            {routes?.map(({label, path}) => (
-              <li>
-                <Link to={path} key={path}>{label}</Link> 
-              </li>
-            ))}
+            {routes && (
+              <>
+                <li>
+                  <Link to="/app-subroutes/full">app-subroutes full app</Link>
+                </li>
+                <li>
+                  <Link to="/app-subroutes/widget">app-subroutes widget</Link>
+                </li>
+                {routes.map(({label, path}) => (
+                  <li>
+                    <Link to={path} key={path}>{label}</Link> 
+                  </li>
+                ))}
+            </>
+            )}
             <li>
               <Link to="/app3">app3</Link>
             </li>
           </ul>
         </nav>
         <Switch>
-          <Route path="/app2/full">
-            <Suspense fallback="loading...">
-              <App2Widget />
-              <App2Full basePath="/app2/full"/>
-            </Suspense>
-          </Route>
-          {routes?.map(({exact, content, path}) => (
-            <Route path={path} exact={exact} key={path}>
-                {content}
-            </Route>
-            ))}
+          {routes && [
+            <Route path="/app-subroutes/full">
+              <Suspense fallback="loading...">
+            
+                Full app :
+                <AppSubroutesFull basePath="/app-subroutes/full"/>
+              </Suspense>
+            </Route>,
+            <Route path="/app-subroutes/widget">
+              <Suspense fallback="loading...">
+                widget :
+                <AppSubroutesWidget />
+              </Suspense>
+            </Route>, 
+            ...routes.map(({exact, content, path}) => (
+              <Route path={path} exact={exact} key={path}>
+                  {content}
+              </Route>
+            ))
+          ]}
           <Route path="/app3">
             <Suspense fallback="loading...">
               <App3Widget />
