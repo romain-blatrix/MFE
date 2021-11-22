@@ -14,11 +14,13 @@ const App3Widget = React.lazy(() => import('app3/Widget'))
 
 function App() {
 
+  const subRoutesPath = 'app-subroutes';
+
   const [routes, setRoutes] = useState()
 
   useEffect(() => {
     const loadData = async () => {      
-      const appTwoRoutes = await import('app-subroutes/routes');
+      const appTwoRoutes = await import(`app-subroutes/routes`);
       setRoutes(appTwoRoutes.default);
     }
     loadData();
@@ -39,14 +41,14 @@ function App() {
             {routes && (
               <>
                 <li>
-                  <Link to="/app-subroutes/full">app-subroutes full app</Link>
+                  <Link to={`/${subRoutesPath}/full`}>app-subroutes full app</Link>
                 </li>
                 <li>
-                  <Link to="/app-subroutes/widget">app-subroutes widget</Link>
+                  <Link to={`/${subRoutesPath}/widget`}>app-subroutes widget</Link>
                 </li>
                 {routes.map(({label, path}) => (
                   <li>
-                    <Link to={path} key={path}>{label}</Link> 
+                    <Link to={`/${subRoutesPath}/${path}`} key={`${subRoutesPath}/${path}`}>{label}</Link> 
                   </li>
                 ))}
             </>
@@ -58,21 +60,21 @@ function App() {
         </nav>
         <Switch>
           {routes && [
-            <Route path="/app-subroutes/full">
+            <Route path={`/${subRoutesPath}/full`}>
               <Suspense fallback="loading...">
             
                 Full app :
-                <AppSubroutesFull basePath="/app-subroutes/full"/>
+                <AppSubroutesFull basePath={`/${subRoutesPath}/full`}/>
               </Suspense>
             </Route>,
-            <Route path="/app-subroutes/widget">
+            <Route path={`/${subRoutesPath}/widget`}>
               <Suspense fallback="loading...">
                 widget :
                 <AppSubroutesWidget />
               </Suspense>
             </Route>, 
             ...routes.map(({exact, content, path}) => (
-              <Route path={path} exact={exact} key={path}>
+              <Route path={`/${subRoutesPath}/${path}`} exact={exact} key={`${subRoutesPath}/${path}`}>
                   {content}
               </Route>
             ))

@@ -47,6 +47,10 @@ module.exports = {
           shareScope: "default", // share scope with this name will be used
           singleton: true, // only a single version of the shared module is allowed
         },
+        "react-dom": {
+          requiredVersion: deps["react-dom"],
+          singleton: true, // only a single version of the shared module is allowed
+        },
         "react-router-dom": {
           requiredVersion: deps["react-router-dom"],
           singleton: true, // only a single version of the shared module is allowed

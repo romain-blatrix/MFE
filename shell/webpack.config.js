@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin =
   require("webpack").container.ModuleFederationPlugin;
 const path = require("path");
+const deps = require("./package.json").dependencies;
 
 module.exports = {
   entry: "./src/index",
@@ -48,6 +49,11 @@ module.exports = {
           singleton: true, // only a single version of the shared module is allowed
         },
         "react-dom": {
+          requiredVersion: deps["react-dom"],
+          singleton: true, // only a single version of the shared module is allowed
+        },
+        "react-router-dom": {
+          requiredVersion: deps["react-router-dom"],
           singleton: true, // only a single version of the shared module is allowed
         },
       },
