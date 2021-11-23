@@ -1,5 +1,4 @@
 import React, {useState, useEffect, Suspense} from "react";
-import {ErrorBoundary} from 'react-error-boundary'
 
 import {
   BrowserRouter as Router,
