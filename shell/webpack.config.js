@@ -9,6 +9,8 @@ module.exports = {
   mode: "development",
   target: "web",
   devServer: {
+    hot: true,
+    liveReload: false,
     static: {
       directory: path.join(__dirname, "dist"),
     },
@@ -47,14 +49,16 @@ module.exports = {
           shareKey: "react", // under this name the shared module will be placed in the share scope
           shareScope: "default", // share scope with this name will be used
           singleton: true, // only a single version of the shared module is allowed
+          eager: true
         },
         "react-dom": {
           requiredVersion: deps["react-dom"],
-          singleton: true, // only a single version of the shared module is allowed
+          singleton: true,
+          eager: true,
         },
         "react-router-dom": {
           requiredVersion: deps["react-router-dom"],
-          singleton: true, // only a single version of the shared module is allowed
+          singleton: true, 
         },
       },
     }),

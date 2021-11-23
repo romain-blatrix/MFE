@@ -11,7 +11,7 @@ export default function Widget() {
         color: "white",
       }}
     >
-      <h2>App 2 Widget</h2>
+      <h2>App Subroutes Widget</h2>
       <p>
         Moment shouldn't download twice, the host has no moment.js <br />{" "}
         {moment().format("MMMM Do YYYY, h:mm:ss a")}

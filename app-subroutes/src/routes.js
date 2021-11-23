@@ -5,13 +5,13 @@ const Widget = React.lazy(() => import('./Widget'))
 const routes = [
   {
     path: 'page1',
-    label: 'app-subroutes page 1 - widget',
+    label: 'loaded subroutes - widget',
     exact: true,
     content: <Suspense fallback="loading loading"><Widget/></Suspense>
   },
   {
     path: 'page2',
-    label: 'app-subroutes page 2',
+    label: 'loaded subroutes - otherx',
     exact: true,
     content: <div>content page 2</div>
   }

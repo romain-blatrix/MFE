@@ -7,6 +7,8 @@ module.exports = {
   entry: "./src/index",
   mode: "development",
   devServer: {
+    hot: true,
+    liveReload: false,
     static: {
       directory: path.join(__dirname, "dist"),
     },
